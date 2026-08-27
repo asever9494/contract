@@ -1,0 +1,11 @@
+oad,retrieved);apiStatus.textContent='Gemini API 연결 정상';apiStatus.className='status ok'}catch(e){removeTyping();addError(e.message||String(e));apiStatus.textContent='API 호출 실패';apiStatus.className='status err'}finally{busy=false;send.disabled=false;q.focus()}}
+
+send.addEventListener('click',()=>ask());q.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();ask()}});q.addEventListener('input',()=>{q.style.height='auto';q.style.height=Math.min(q.scrollHeight,130)+'px'});
+document.querySelectorAll('.qbtn').forEach(b=>b.addEventListener('click',()=>ask(b.textContent.trim())));
+$('#toggleKey').addEventListener('click',()=>{apiKey.type=apiKey.type==='password'?'text':'password';$('#toggleKey').textContent=apiKey.type==='password'?'보기':'숨김'});
+$('#saveKey').addEventListener('click',()=>{if(!apiKey.value.trim()){apiStatus.textContent='저장할 API Key를 입력하세요.';apiStatus.className='status err';return}sessionStorage.setItem('gemini_api_key',apiKey.value.trim());sessionStorage.setItem('gemini_model',model.value.trim());apiStatus.textContent='현재 탭 세션에만 저장했습니다.';apiStatus.className='status ok'});
+$('#clearKey').addEventListener('click',()=>{apiKey.value='';sessionStorage.removeItem('gemini_api_key');apiStatus.textContent='API Key를 지웠습니다.';apiStatus.className='status'});
+apiKey.value=sessionStorage.getItem('gemini_api_key')||'';model.value=sessionStorage.getItem('gemini_model')||'gemini-3.7-flash';
+})();
+</script>
+</body></html>
